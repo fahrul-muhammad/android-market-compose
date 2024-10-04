@@ -38,7 +38,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
 @Composable
 fun MarketApp(modifier: Modifier = Modifier) {
