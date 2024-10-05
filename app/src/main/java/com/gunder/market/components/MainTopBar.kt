@@ -16,11 +16,14 @@ import androidx.compose.material.icons.outlined.LocationOn
 import androidx.compose.material.icons.outlined.Menu
 import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.ShoppingCart
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -31,9 +34,11 @@ import androidx.compose.ui.unit.sp
 import com.gunder.market.R
 import com.gunder.market.ui.theme.MarketTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainTopBar(modifier: Modifier = Modifier) {
+    var name by remember {
+        mutableStateOf("")
+    }
     Column(modifier.padding(16.dp)) {
         Row(
             modifier = modifier.width(IntrinsicSize.Max),
@@ -41,8 +46,10 @@ fun MainTopBar(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             OutlinedTextField(modifier = modifier.widthIn(min = 235.dp),
-                value = "",
-                onValueChange = {},
+                value = name,
+                onValueChange = { newName ->
+                    name = newName
+                },
                 placeholder = { Text(text = stringResource(R.string.txt_search_here)) },
                 leadingIcon = {
                     Icon(
