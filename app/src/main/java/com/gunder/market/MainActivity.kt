@@ -16,9 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gunder.market.components.MainBottomCategory
+import com.gunder.market.components.MainCardCategory
 import com.gunder.market.components.MainTopBar
+import com.gunder.market.components.MainTopCategory
 import com.gunder.market.components.TopMenu
+import com.gunder.market.model.dummyListBanner
+import com.gunder.market.model.dummyListBottomCategory
 import com.gunder.market.model.dummyListTopBar
+import com.gunder.market.model.dummyListTopCategory
 import com.gunder.market.ui.theme.MarketTheme
 
 class MainActivity : ComponentActivity() {
@@ -28,39 +34,75 @@ class MainActivity : ComponentActivity() {
             MarketTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
+                    modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background
                 ) {
-                        MarketApp()
+                    MarketApp()
 
-                    }
                 }
             }
         }
     }
+}
 
 @Composable
 fun MarketApp(modifier: Modifier = Modifier) {
     Column(
-        modifier = modifier
-            .verticalScroll(rememberScrollState())
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         MainTopBar()
         MainTopMenu()
+        MainCategoryTop()
+        MainCategoryCard()
+        MainCategoryBottom()
     }
 
+}
+
+@Composable
+fun MainCategoryCard() {
+    LazyRow {
+        items(dummyListBanner){
+            MainCardCategory(listBanner = it)
+        }
+    }
+}
+
+@Composable
+fun MainCategoryTop() {
+    LazyRow {
+        items(dummyListTopCategory) {
+            MainTopCategory(listTopCategory = it)
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun MainCategoryTopPreview() {
+    MarketTheme {
+        MainCategoryTop()
+    }
+}
+
+@Composable
+fun MainCategoryBottom() {
+    LazyRow {
+        items(dummyListBottomCategory) {
+            MainBottomCategory(listBottomCategory = it)
+        }
+    }
 }
 
 @Composable
 fun MainTopMenu() {
     LazyRow(modifier = Modifier.padding(4.dp)) {
-        items(dummyListTopBar){
+        items(dummyListTopBar) {
             TopMenu(listTopMenu = it)
         }
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview(showBackground = true)
 @Composable
 private fun MainTopMenuPreview() {
     MarketTheme {
