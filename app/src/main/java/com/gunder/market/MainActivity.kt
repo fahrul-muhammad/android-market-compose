@@ -11,11 +11,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.gunder.market.components.BottomBar
 import com.gunder.market.components.MainBannerVertical
 import com.gunder.market.components.MainBottomCategory
 import com.gunder.market.components.MainCardCategory
@@ -49,16 +51,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MarketApp(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier.verticalScroll(rememberScrollState())
-    ) {
-        MainTopBar()
-        MainTopMenu()
-        MainCategoryTop()
-        MainCategoryCard()
-        MainCategoryBottom()
-        MainImageCategory()
-        BannerVertical()
+    Scaffold(bottomBar = { BottomBar() }) { paddingValues ->
+        Column(
+            modifier = modifier
+                .verticalScroll(rememberScrollState())
+                .padding(paddingValues)
+        ) {
+            MainTopBar()
+            MainTopMenu()
+            MainCategoryTop()
+            MainCategoryCard()
+            MainCategoryBottom()
+            MainImageCategory()
+            BannerVertical()
+        }
     }
 
 }
@@ -85,7 +91,7 @@ fun MainCategoryTop() {
 @Composable
 fun BannerVertical() {
     LazyRow {
-        items(dummyListCardForYou){
+        items(dummyListCardForYou) {
             MainBannerVertical(listBanner = it)
         }
     }
